@@ -15,8 +15,8 @@ services:
     ports:
       - ${RADARR_PORT}:7878
     restart: always
-	  networks:
-	    - proxied
+    networks:
+      - proxied
 	
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -33,8 +33,8 @@ services:
     ports:
       - ${SONARR_PORT}:8989
     restart: always
-	  networks:
-	    - proxied
+    networks:
+      - proxied
       
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -46,6 +46,8 @@ services:
     volumes:
       - ${HOST_CONFIG_DIRECTORY}/config-nginx/data:/data
       - ${HOST_CONFIG_DIRECTORY}/config-nginx/letsencrypt:/etc/letsencrypt
+    networks:
+      - proxied
       
       
 networks:
