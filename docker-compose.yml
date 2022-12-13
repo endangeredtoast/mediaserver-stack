@@ -105,7 +105,7 @@ services:
       - ${QBITTORRENTVPN_WEBUI_PORT:-4104}:4104
     restart: always
     image: binhex/arch-qbittorrentvpn
-	
+
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     environment:
@@ -117,8 +117,8 @@ services:
       - ./apps/overseerr:/config
     ports:
       - ${OVERSEERR_PORT:-4105}:4105
-	links:
-	  - radarr
-	  - sonarr
-	  - plex
+    links:
+      - radarr
+      - sonarr
+      - plex
     restart: always
