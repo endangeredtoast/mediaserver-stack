@@ -1,5 +1,17 @@
 version: "2.1"
 services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    environment:
+      - PLEX_CLAIM=${PLEX_CLAIM_TOKEN:?err}
+      - PUID=99
+      - PGID=100
+      - UMASK=000
+      - VERSION=docker
+    volumes:
+      - ./apps/plex/config:/config
+      - ${MOVIES_DIRECTORY:?err}:${MOVIES_DIRECTORY:?err}
+      - ${TVSHOW_DIRECTORY:?err}:${TVSHOW_DIRECTORY:?err}
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     environment:
