@@ -82,21 +82,43 @@ services:
     restart: always
 
   qbittorrentvpn:
+    privileged: true
     volumes:
       - ./apps/qbittorrentvpn/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
       - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
     environment:
       - VPN_ENABLED=yes
-      - VPN_TYPE=${VPN_TYPE:-openvpn}
-      - VPN_USERNAME=${OPENVPN_USERNAME}
-      - VPN_PASSWORD=${OPENVPN_PASSWORD}
-      - LAN_NETWORK=192.168.0.0/16,10.0.0.0/8,172.16.0.0/16
+      - VPN_PROV=custom
+      - VPN_CLIENT=${VPN_TYPE:-openvpn}
+      - VPN_USER=${OPENVPN_USERNAME}
+      - VPN_PASS=${OPENVPN_PASSWORD}
+      - LAN_NETWORK=${LAN_NETWORK:-192.168.0.0/16}
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - UMASK=${UMASK:-000}
       - INSTALL_PYTHON3=yes
+      - WEBUI_PORT=${QBITTORRENT_WEBUI_PORT:-4104}
+      - DEBUG=false
+      - ENABLE_PRIVOXY=no
     ports:
-      - ${QBITTORRENTVPN_WEBUI_PORT:-8080}:8080
+      - ${QBITTORRENTVPN_WEBUI_PORT:-4104}:4104
     restart: always
-    image: dyonr/qbittorrentvpn
+    image: binhex/arch-qbittorrentvpn
+	
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - UMASK=${UMASK:-000}
+      - TZ=${TIMEZONE:-America/Winnipeg}
+    volumes:
+      - ./apps/overseerr:/config
+    ports:
+      - ${OVERSEERR_PORT:-4105}:4105
+	links:
+	  - radarr
+	  - sonarr
+	  - plex
+    restart: always
