@@ -102,6 +102,6 @@ services:
       - UMASK=${UMASK:-000}
       - INSTALL_PYTHON3=yes
     ports:
-      - ${QBITTORRENTVPN-WEBUI_PORT:-8080}:8080
+      - ${QBITTORRENTVPN_WEBUI_PORT:-8080}:8080
     restart: always
     image: dyonr/qbittorrentvpn
