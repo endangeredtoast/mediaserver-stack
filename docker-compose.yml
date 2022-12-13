@@ -1,56 +1,15 @@
-version: "1.0"
+version: "2.1"
 services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
-    container_name: radarr
     environment:
       - PUID=1000
       - PGID=1000
-      - UMASK=000
-      - TZ=America/Winnipeg
+      - TZ=${TIMEZONE:-America/Winnipeg}
     volumes:
-      - ${HOST_CONFIG_DIRECTORY}/config-radarr:/config
-      - ${HOST_MEDIA_DIRECTORY}/Movies:/movies
-      - ${HOST_DOWNLOAD_DIRECTORY}/Downloads:/downloads
+      - ./apps/radarr/config:/config
+      - ${MOVIES_DIRECTORY:?err}:${MOVIES_DIRECTORY:?err}
+      - ${DOWNLOAD_DIRECTORY:?err}:${DOWNLOAD_DIRECTORY:?err}
     ports:
-      - ${RADARR_PORT}:7878
+      - ${RADARR_PORT:-7878}:7878
     restart: always
-    networks:
-      - proxied
-
-  sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - UMASK=000
-      - TZ=America/Winnipeg
-    volumes:
-      - ${HOST_CONFIG_DIRECTORY}/config-sonarr:/config
-      - ${HOST_MEDIA_DIRECTORY}/TV:/tv
-      - ${HOST_DOWNLOAD_DIRECTORY}/Downloads:/downloads
-    ports:
-      - ${SONARR_PORT}:8989
-    restart: always
-    networks:
-      - proxied
-      
-  nginx-proxy-manager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: always
-    ports:
-      - '${NGINX_HTTP_PORT}:80'
-      - '${NGINX_WEBGUI_PORT}:81'
-      - '${NGINX_HTTPS_PORT}:443'
-    volumes:
-      - ${HOST_CONFIG_DIRECTORY}/config-nginx/data:/data
-      - ${HOST_CONFIG_DIRECTORY}/config-nginx/letsencrypt:/etc/letsencrypt
-    networks:
-      - proxied
-      
-      
-networks:
-  proxied
-    
-  
