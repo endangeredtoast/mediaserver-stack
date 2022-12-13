@@ -2,6 +2,7 @@ version: "2.1"
 services:
   plex:
     image: lscr.io/linuxserver/plex:latest
+    network_mode: host
     environment:
       - PLEX_CLAIM=${PLEX_CLAIM_TOKEN:?err}
       - PUID=99
