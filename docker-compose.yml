@@ -27,3 +27,16 @@ services:
     ports:
       - ${SONARR_PORT:-8989}:8989
     restart: always
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE:-America/Winnipeg}
+    volumes:
+      - ./apps/prowlarr/config:/config
+      - ${DOWNLOAD_DIRECTORY:?err}:${DOWNLOAD_DIRECTORY:?err}
+    ports:
+      - ${PROWLARR_PORT:-9696}:9696
+    restart: always
