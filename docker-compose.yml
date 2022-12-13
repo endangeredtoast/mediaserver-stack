@@ -13,7 +13,6 @@ services:
       - ./apps/plex/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
       - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
-      - ${MEDIA_DIRECTORY_3:-/tmp/mediadir3}:${MEDIA_DIRECTORY_3:-/tmp/mediadir3}
     restart: always
 
   radarr:
@@ -27,7 +26,6 @@ services:
       - ./apps/radarr/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
       - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
-      - ${MEDIA_DIRECTORY_3:-/tmp/mediadir3}:${MEDIA_DIRECTORY_3:-/tmp/mediadir3}
     ports:
       - ${RADARR_PORT:-7878}:7878
     links:
@@ -46,7 +44,6 @@ services:
       - ./apps/sonarr/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
       - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
-      - ${MEDIA_DIRECTORY_3:-/tmp/mediadir3}:${MEDIA_DIRECTORY_3:-/tmp/mediadir3}
     ports:
       - ${SONARR_PORT:-8989}:8989
     links:
@@ -65,7 +62,6 @@ services:
       - ./apps/prowlarr/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
       - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
-      - ${MEDIA_DIRECTORY_3:-/tmp/mediadir3}:${MEDIA_DIRECTORY_3:-/tmp/mediadir3}
     ports:
       - ${PROWLARR_PORT:-9696}:9696
     links:
@@ -90,7 +86,6 @@ services:
       - ./apps/qbittorrentvpn/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
       - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
-      - ${MEDIA_DIRECTORY_3:-/tmp/mediadir3}:${MEDIA_DIRECTORY_3:-/tmp/mediadir3}
     environment:
       - VPN_ENABLED=yes
       - VPN_TYPE=${VPN_TYPE:-openvpn}
