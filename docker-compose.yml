@@ -41,6 +41,8 @@ services:
       - ${PROWLARR_PORT:-9696}:9696
     links:
       - flaresolverr
+      - radarr
+      - sonarr
     restart: always
 
   flaresolverr:
