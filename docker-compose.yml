@@ -12,8 +12,8 @@ services:
     volumes:
       - ./apps/plex/config:/config
       - ${MEDIA_DIRECTORY_1:?err}:${MEDIA_DIRECTORY_1:?err}
-      - ${MEDIA_DIRECTORY_2}:${MEDIA_DIRECTORY_2}
-      - ${MEDIA_DIRECTORY_3}:${MEDIA_DIRECTORY_3}
+      - ${MEDIA_DIRECTORY_2:-/tmp/mediadir2}:${MEDIA_DIRECTORY_2:-/tmp/mediadir2}
+      - ${MEDIA_DIRECTORY_3:-/tmp/mediadir3}:${MEDIA_DIRECTORY_3:-/tmp/mediadir3}
     restart: always
 
   radarr:
