@@ -102,7 +102,7 @@ services:
       - DEBUG=false
       - ENABLE_PRIVOXY=no
     ports:
-      - ${QBITTORRENTVPN_WEBUI_PORT:-4104}:4104
+      - ${QBITTORRENTVPN_WEBUI_PORT:-4104}:${QBITTORRENTVPN_WEBUI_PORT:-4104}
     restart: always
     image: binhex/arch-qbittorrentvpn
 
