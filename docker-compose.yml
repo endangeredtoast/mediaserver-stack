@@ -122,3 +122,19 @@ services:
       - sonarr
       - plex
     restart: always
+    
+  requestrr:
+    image: lscr.io/linuxserver/requestrr:latest
+    container_name: requestrr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TIMEZONE:-America/Winnipeg}
+    volumes:
+      - ./apps/requestrr/config:/config
+    ports:
+      - ${REQUESTRR_PORT:-4545}:4545
+    restart: always
+    links:
+      - radarr
+      - sonarr
